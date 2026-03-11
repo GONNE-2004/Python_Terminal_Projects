@@ -29,6 +29,7 @@ class MediaError(Exception):
     """Custom exception for media-related errors."""
 
     def __init__(self, message, obj) -> None:
+        """Initialize the MediaError with a message and the object that caused the error."""
         super().__init__(message)
         self.obj = obj
 
@@ -80,6 +81,7 @@ class MediaCatalogue:
         self.items = []
 
     def add(self, media_item) -> None:
+        """Add a media item to the catalogue, ensuring it is either a Movie or TVSeries instance."""
         if not isinstance(media_item, (Movie, TVSeries)):
             raise MediaError(
                 'Only Movie and TVSeries instances can be added to the catalogue', media_item)
@@ -117,7 +119,17 @@ catalogue = MediaCatalogue()
 
 
 def media_input() -> Movie | TVSeries:
+    """Function to get user
+    input for a media item and
+    return either a Movie or TVSeries
+    instance based on the input.
+    """
     media_type = input('Enter media type (movie/tv): ').strip().lower()
+
+    if media_type not in ['movie', 'tv']:
+        """If the user enters an invalid media type, raise a ValueError with a clear message."""
+        raise ValueError('Invalid media type. Please enter "movie" or "tv".')
+
     title = input('Enter title: ').strip()
     year = int(input('Enter year: ').strip())
     director = input('Enter director: ').strip()
@@ -126,17 +138,17 @@ def media_input() -> Movie | TVSeries:
     if media_type == 'movie':
         return Movie(title, year, director, duration)
 
-    elif media_type == 'tv':
-        seasons = int(input('Enter number of seasons: ').strip())
-        total_episodes = int(input('Enter total episodes: ').strip())
-        return TVSeries(title, year, director, duration, seasons, total_episodes)
-
-    else:
-        raise ValueError('Invalid media type. Please enter "movie" or "tv".')
+    seasons = int(input('Enter number of seasons: ').strip())
+    total_episodes = int(input('Enter total episodes: ').strip())
+    return TVSeries(title, year, director, duration, seasons, total_episodes)
 
 
 running = True
 while running:
+    """Main loop to interact with the user,
+    allowing them to add media items or exit the program.
+    It handles user input and displays the media catalogue after each addition.
+    """
     try:
         command = input('Enter command (add/exit): ').strip().lower()
         if command == 'exit':
