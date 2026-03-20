@@ -1,0 +1,19 @@
+class Movie:
+    """Parent class representing a movie with title, year, director, and duration."""
+
+    def __init__(self, title, year, director, duration) -> None:
+        if not title.strip():
+            raise ValueError('Title cannot be empty')
+        if year < 1895:
+            raise ValueError('Year must be 1895 or later')
+        if not director.strip():
+            raise ValueError('Director cannot be empty')
+        if duration <= 0:
+            raise ValueError('Duration must be positive')
+        self.title = title
+        self.year = year
+        self.director = director
+        self.duration = duration
+
+    def __str__(self) -> str:
+        return f'{self.title} ({self.year}) - {self.duration} min, {self.director}'
