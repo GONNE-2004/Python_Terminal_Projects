@@ -1,6 +1,6 @@
-from catalogue import MediaCatalogue
-from input_handler import media_input
-from errors import MediaError
+from catalogue import MediaCatalogue # Import the MediaCatalogue class to manage our collection of media items
+from input_handler import media_input # Import the media_input function to get user input for media items
+from errors import MediaError # Import the custom MediaError exception to handle errors related to media items
 
 # Create an instance of the MediaCatalogue to store our media items
 catalogue = MediaCatalogue()
